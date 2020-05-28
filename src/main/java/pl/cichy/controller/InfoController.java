@@ -3,6 +3,7 @@ package pl.cichy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.cichy.TaskConfigurationProperties;
@@ -12,19 +13,24 @@ public class InfoController {
 
     private DataSourceProperties dataSource;
     private TaskConfigurationProperties myProp;
+    private TaskConfigurationProperties.template myProp2;
 
-    public InfoController(final DataSourceProperties dataSource, final TaskConfigurationProperties myProp) {
+    public InfoController(final DataSourceProperties dataSource,
+                          final TaskConfigurationProperties myProp,
+                          final TaskConfigurationProperties.template myProp2) {
         this.dataSource = dataSource;
         this.myProp = myProp;
+        this.myProp2 = myProp2;
     }
 
     @GetMapping("/info/url")
-    String url(){
-        return dataSource.getUrl();
-    }
+    String url(){ return dataSource.getUrl(); }
 
     @GetMapping("/info/prop")
-    boolean myProp(){
-        return myProp.isAllowMultipleTasksFromTemplate();
-    }
+    boolean myProp(){ return myProp.isAllowMultipleTasksFromTemplate(); }
+
+    @GetMapping("/info/prop2")
+    boolean myProp2(){ return myProp2.isAllowMultipleTasks(); }
+
+
 }

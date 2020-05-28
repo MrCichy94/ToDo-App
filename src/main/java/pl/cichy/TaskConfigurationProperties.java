@@ -17,5 +17,24 @@ public class TaskConfigurationProperties {
         this.allowMultipleTasksFromTemplate = allowMultipleTasksFromTemplate;
     }
 
+    @Configuration
+    @ConfigurationProperties("task.template")
+    public static class template {
+        private static boolean allowMultipleTasks;
+
+        public static boolean isAllowMultipleTasks() {
+            return allowMultipleTasks;
+        }
+
+        public void setAllowMultipleTasks(final boolean allowMultipleTasks) {
+            this.allowMultipleTasks = allowMultipleTasks;
+        }
+
+        public boolean getAllowMultipleTasks(){
+            return this.allowMultipleTasks;
+        }
+    }
 
 }
+
+
