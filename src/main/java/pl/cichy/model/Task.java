@@ -31,6 +31,11 @@ public class Task {
 
     Task(){ }
 
+    public Task(String description, LocalDateTime deadline) {
+        this.description = description;
+        this.deadline = deadline;
+    }
+
     public int getId() { return id; }
     void setId(final int id) { this.id = id; }
 
@@ -41,10 +46,10 @@ public class Task {
     public void setDone(final boolean done) { this.done = done; }
 
     public LocalDateTime getDeadline() { return deadline; }
-    public void setDeadline(final LocalDateTime deadline) { this.deadline = deadline; }
+    void setDeadline(final LocalDateTime deadline) { this.deadline = deadline; }
 
-    public TaskGroup getGroup() { return group; }
-    public void setGroup(final TaskGroup group) { this.group = group; }
+    TaskGroup getGroup() { return group; }
+    void setGroup(final TaskGroup group) { this.group = group; }
 
     public void updateFrom(final Task source){
         description = source.description;

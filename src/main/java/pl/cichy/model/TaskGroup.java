@@ -21,21 +21,27 @@ public class TaskGroup {
     private boolean done;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Task> tasks;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
 
 
-    TaskGroup(){ }
+    public TaskGroup(){ }
 
     public int getId() { return id; }
     void setId(final int id) { this.id = id; }
 
     public String getDescription() { return description; }
-    void setDescription(final String description) { this.description = description; }
+    public void setDescription(final String description) { this.description = description; }
 
     public boolean isDone() { return done; }
     public void setDone(final boolean done) { this.done = done; }
 
     public Set<Task> getTasks() { return tasks; }
-    void setTasks(final Set<Task> tasks) { this.tasks = tasks; }
+    public void setTasks(final Set<Task> tasks) { this.tasks = tasks; }
+
+    Project getProject() { return project; }
+    public void setProject(final Project project) { this.project = project; }
 }
 
