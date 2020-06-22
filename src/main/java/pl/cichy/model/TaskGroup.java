@@ -41,7 +41,7 @@ public class TaskGroup {
     public Set<Task> getTasks() { return tasks; }
     public void setTasks(final Set<Task> tasks) { this.tasks = tasks; }
 
-    Project getProject() { return project; }
+    public Project getProject() { return project; }
     public void setProject(final Project project) { this.project = project; }
 }
 
