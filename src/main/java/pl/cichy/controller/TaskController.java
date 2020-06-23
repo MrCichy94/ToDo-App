@@ -1,5 +1,6 @@
 package pl.cichy.controller;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository repository;
 
+    //rozwiazanie problemu nieunikalnych beanow na potrezby wstawania aplikacji do testów
+    //1) rozwiazanie mocno springowe to: @Qualifier("sqlTaskRepository") Wskazanie o ktore miejsce nam chodzi w tworzeniu beana
+    //TO ZEPSULOBY NAM TESTY BO BY BRALO INNA REPOSITORY (NIE TEST REPO)
     TaskController(final TaskRepository repository) {
         this.repository = repository;
     }

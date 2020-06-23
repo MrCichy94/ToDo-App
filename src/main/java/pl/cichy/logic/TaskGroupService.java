@@ -11,8 +11,8 @@ import pl.cichy.model.projection.GroupWriteModel;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@RequestScope
+//@Service - zastapiony beanami z LogicConfiguration
+//@RequestScope
 public class TaskGroupService {
 
     private TaskGroupRepository repository;
