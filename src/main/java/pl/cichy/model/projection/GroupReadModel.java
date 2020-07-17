@@ -4,6 +4,7 @@ import pl.cichy.model.Task;
 import pl.cichy.model.TaskGroup;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,9 @@ public class GroupReadModel {
     public GroupReadModel(TaskGroup source) {
         id = source.getId();
         description = source.getDescription();
-        source.getTasks().stream().map(Task::getDeadline)
+        source.getTasks().stream()
+                .map(Task::getDeadline)
+                .filter(Objects::nonNull)
                 .max(LocalDateTime::compareTo)
                 .ifPresent(date -> deadline = date);
         tasks = source.getTasks().stream()
