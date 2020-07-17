@@ -3,6 +3,7 @@ package pl.cichy.logic;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 import pl.cichy.TaskConfigurationProperties;
+import pl.cichy.model.Project;
 import pl.cichy.model.TaskGroup;
 import pl.cichy.model.TaskGroupRepository;
 import pl.cichy.model.TaskRepository;
@@ -24,7 +25,12 @@ public class TaskGroupService {
     }
 
     public GroupReadModel createGroup(GroupWriteModel source){
-        TaskGroup result = repository.save(source.toGroup());
+        return createGroup(source, null);
+    }
+
+    //przeciążenie pobierające projekt
+    GroupReadModel createGroup(GroupWriteModel source, final Project project) {
+        TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 

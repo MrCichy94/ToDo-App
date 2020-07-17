@@ -19,8 +19,10 @@ public class TaskGroup {
     //waliduje, ale nie wyswietla w jsonie tej message, daje "", od wyrzucenia standardowej wali.
     private String description;
     private boolean done;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Task> tasks;
+
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
