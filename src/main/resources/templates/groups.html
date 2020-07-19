@@ -44,7 +44,7 @@
             <hr class="M(0)"/>
         </dt>
         <dd>
-            <a th:href="@{/tasks.html(group=${group.id})}"></a>
+            <a th:href="@{/tasks.html(group=${group.id})}">
                 <ul class="P(0)">
                     <li th:each="task : ${group.tasks}">
                         <span th:unless="${task.done}" th:text="${task.description}"></span>
@@ -76,7 +76,7 @@
 
                 <label>Deadline
                     <input type="datetime-local" th:field="*{tasks[__${taskStat.index}__].deadline}"
-                           th:errorclass="'Bdc(red)'" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}/>
+                           th:errorclass="'Bdc(red)'" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
                 </label>
 
 

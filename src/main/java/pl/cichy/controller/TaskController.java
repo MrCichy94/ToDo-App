@@ -1,5 +1,6 @@
 package pl.cichy.controller;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import pl.cichy.logic.TaskService;
@@ -13,21 +14,22 @@ import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/tasks")
 class TaskController {
 
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
+    private final ApplicationEventPublisher eventPublisher;
     private final TaskRepository repository;
     private final TaskService service;
 
     //rozwiazanie problemu nieunikalnych beanow na potrezby wstawania aplikacji do testów
     //1) rozwiazanie mocno springowe to: @Qualifier("sqlTaskRepository") Wskazanie o ktore miejsce nam chodzi w tworzeniu beana
     //TO ZEPSULOBY NAM TESTY BO BY BRALO INNA REPOSITORY (NIE TEST REPO)
-    TaskController(final TaskRepository repository,
+    TaskController(ApplicationEventPublisher eventPublisher, final TaskRepository repository,
                    final TaskService service) {
+        this.eventPublisher = eventPublisher;
         this.repository = repository;
         this.service = service;
     }
@@ -97,7 +99,10 @@ class TaskController {
             return ResponseEntity.notFound().build();
         }
         repository.findById(id)
-                .ifPresent(task -> task.setDone(!task.isDone()));
+                .map(Task::toggle)
+                .ifPresent(eventPublisher::publishEvent);
         return ResponseEntity.noContent().build();
     }
 }
+
+//transactional jest po to żeby nie było byków typu "wysłałeś info" a nie przeszła zmiana stanu na bazie np

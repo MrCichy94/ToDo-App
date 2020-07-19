@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Controller
+@IllegalExceptionsProcessing
 @RequestMapping("/groups")
 class TaskGroupController {
 
@@ -99,16 +100,6 @@ class TaskGroupController {
     public ResponseEntity<?> toggleGroup(@PathVariable int id){
         service.toggleGroup(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e){
-        return ResponseEntity.notFound().build();
-    }
-
-    @ExceptionHandler(IllegalStateException.class)
-    ResponseEntity<String> handleIllegalState(IllegalStateException e){
-        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ModelAttribute("groups")

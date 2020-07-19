@@ -187,5 +187,11 @@ class ProjectServiceTest {
             map.put(entity.getId(), entity);
             return entity;
         }
+
+        @Override
+        public boolean existsByDescription(String description) {
+            return map.values().stream()
+                    .anyMatch(group -> !group.getDescription().equals(description));
+        }
     }
 }

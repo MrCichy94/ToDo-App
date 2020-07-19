@@ -1,6 +1,7 @@
 package pl.cichy.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import pl.cichy.model.event.TaskEvent;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -58,7 +59,12 @@ public class Task {
     void setDescription(final String description) { this.description = description; }
 
     public boolean isDone() { return done; }
-    public void setDone(final boolean done) { this.done = done; }
+
+    public TaskEvent toggle() {
+        this.done = !this.done;
+        return TaskEvent.changed(this);
+    }
+
 
     public LocalDateTime getDeadline() { return deadline; }
     void setDeadline(final LocalDateTime deadline) { this.deadline = deadline; }
